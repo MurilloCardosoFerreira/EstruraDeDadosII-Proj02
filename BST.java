@@ -1,4 +1,3 @@
-
 public class BST {
     private Node root;
 
@@ -8,51 +7,51 @@ public class BST {
     }
 
     // Inserção
-    public void inserir(int key, Object data) {
-        root = inserirRecursivamente(root, key, data);
+    public void insert(int key, Object data) {
+        root = insertRec(root, key, data);
     }
 
-    private Node inserirRecursivamente(Node root, int key, Object data) {
+    private Node insertRec(Node root, int key, Object data) {
         if (root == null) {
             return new Node(key, data);
         }
         if (key < root.key) {
-            root.left = inserirRecursivamente(root.left, key, data);
+            root.left = insertRec(root.left, key, data);
         } else if (key > root.key) {
-            root.right = inserirRecursivamente(root.right, key, data);
+            root.right = insertRec(root.right, key, data);
         }
         return root;
     }
 
     // Busca
-    public Object buscar(int key) {
-        Node result = buscarRecursivamente(root, key);
+    public Object search(int key) {
+        Node result = searchRec(root, key);
         return (result != null) ? result.data : null;
     }
 
-    private Node buscarRecursivamente(Node root, int key) {
+    private Node searchRec(Node root, int key) {
         if (root == null || root.key == key) {
             return root;
         }
         if (key < root.key) {
-            return buscarRecursivamente(root.left, key);
+            return searchRec(root.left, key);
         }
-        return buscarRecursivamente(root.right, key);
+        return searchRec(root.right, key);
     }
 
     // Remoção
-    public void remover(int key) {
-        root = removerRecursivamente(root, key);
+    public void delete(int key) {
+        root = deleteRec(root, key);
     }
 
-    private Node removerRecursivamente(Node root, int key) {
+    private Node deleteRec(Node root, int key) {
         if (root == null) {
             return root;
         }
         if (key < root.key) {
-            root.left = removerRecursivamente(root.left, key);
+            root.left = deleteRec(root.left, key);
         } else if (key > root.key) {
-            root.right = removerRecursivamente(root.right, key);
+            root.right = deleteRec(root.right, key);
         } else {
             // Nó encontrado
 
@@ -71,7 +70,7 @@ public class BST {
                 Node successor = getMin(root.right);
                 root.key = successor.key;
                 root.data = successor.data;
-                root.right = removerRecursivamente(root.right, successor.key);
+                root.right = deleteRec(root.right, successor.key);
             }
         }
         return root;
