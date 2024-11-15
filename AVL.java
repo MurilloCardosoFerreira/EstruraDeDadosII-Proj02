@@ -7,7 +7,7 @@ public class AVL {
     }
 
     // Inserção
-    public void inserir(int key, Object data) {
+    public void insert(int key, Object data) {
         root = insertRec(root, key, data);
     }
 
@@ -31,18 +31,18 @@ public class AVL {
     }
 
     // Remoção
-    public void remover(int key) {
-        root = removerRecusivamente(root, key);
+    public void delete(int key) {
+        root = deleteRec(root, key);
     }
 
-    private Node removerRecusivamente(Node node, int key) {
+    private Node deleteRec(Node node, int key) {
         if (node == null) {
             return node;
         }
         if (key < node.key) {
-            node.left = removerRecusivamente(node.left, key);
+            node.left = deleteRec(node.left, key);
         } else if (key > node.key) {
-            node.right = removerRecusivamente(node.right, key);
+            node.right = deleteRec(node.right, key);
         } else {
             // Caso 1: Nó folha
             if (node.left == null && node.right == null) {
@@ -55,10 +55,10 @@ public class AVL {
                 return node.left;
             }
             // Caso 3: Dois filhos
-            Node sucessor = getMin(node.right);
-            node.key = sucessor.key;
-            node.data = sucessor.data;
-            node.right = removerRecusivamente(node.right, sucessor.key);
+            Node successor = getMin(node.right);
+            node.key = successor.key;
+            node.data = successor.data;
+            node.right = deleteRec(node.right, successor.key);
         }
 
         // Atualizar a altura e balancear o nó
